@@ -1,0 +1,268 @@
+<html>
+
+<head>
+    
+    <title>Priority List</title>
+    <link rel ='icon' type="images/x-icon" href = "images/dog.png">
+    <link rel="stylesheet" href="Styles/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <audio class = "youtube-main" id="musicPlayer" controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        </audio>
+        <nav>
+            <div class="logo">
+                <img src="images/dog.png">
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <!-- <li><a href="application.html">Applications</a></li> -->
+                    <li><a href="TODOList.html">TO DO List</a></li>
+                    <!-- <li><a href="MyProfile.html">Motivational Boost!</a></li> -->
+                    <!--<li><a href="login.html">Login/Sign up</a></li> -->
+                </ul>
+            </div>
+            <div class="anya"><img src="images/Anya-PNG-Image.png"></div>
+     
+        </nav>
+        <div class="information">
+
+            <div class="overlay"></div>
+            <div id="circle">
+                <div class="feature one">
+                    <img src="images/camera.png">
+                    <div>
+                        <h2>Albert Einstein
+                            </h2>
+                        <p>Information is not knowledge.</p>
+                    </div>
+                </div>
+                <div class="feature two">
+                    <!-- <img src="images/processor.png"> -->
+                    <div>
+                        <h2>Eren Yeager</h2>
+                        <p>I'm not gonna die here</p>
+                    </div>
+                </div>
+                <div class="feature three">
+                    <!-- <img src="images/display.png"> -->
+                    <div>
+                        <h2>Anya Forger</h2>
+                        <p>Waku waku!</p>
+                    </div>
+                </div>
+                <div class="feature four">
+                    <!-- <img src="images/battery.png"> -->
+                    <div>
+                        <h2>Uncle Roger</h2>
+                        <p>Where your wok? Haiyaa.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="controls">
+            <img src="images/arrow.png" id="upBtn">
+            <h3>Tasks</h3>
+            <img src="images/arrow.png" id='downBtn'>
+
+        </div>
+
+        <div class="todolist">
+            <h1>Remeber that...</h1>
+
+        </div>
+
+        <div class="todobox">
+            <form id="userForm">
+                <label for="sentenceInput">Memo:<br></label>
+                <input type="text" id="sentenceInput" name="sentence" placeholder="Thoughts...">
+
+                <button type="button" onclick="addTask()">Add Memo</button>
+            </form>
+
+            <div id="output">
+                <!-- Tasks will be added here dynamically -->
+            </div>
+            <button type="button" onclick="removeCheckedTasks()">Remove memo!</button>
+        </div>
+        <div class="timeplace">
+            <div class="time">
+                <ul>
+                    <li> Clock
+                        <div id="clock"></div>
+                    </li>
+                    <li>
+                        <div id="timer"></div>
+                    </li>
+                </ul>
+            <button onclick="startTimer()">Start</button>
+            <button onclick="stopTimer()">Stop</button>
+            <button onclick="resetTimer()">Reset </button>
+        
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+    <script>
+        var circle = document.getElementById("circle");
+        var upBtn = document.getElementById("upBtn");
+        var downBtn = document.getElementById("downBtn");
+
+        var rotateValue = circle.style.transform;
+        var rotateSum;
+
+        upBtn.onclick = function () {
+            rotateSum = rotateValue + "rotate(-90deg)";
+            circle.style.transform = rotateSum;
+            rotateValue = rotateSum;
+        }
+
+        downBtn.onclick = function () {
+            rotateSum = rotateValue + "rotate(90deg)";
+            circle.style.transform = rotateSum;
+            rotateValue = rotateSum;
+        }
+
+        function addTask() {
+            var userInput = document.getElementById('sentenceInput').value;
+            if (userInput.trim() !== '') {
+                var outputDiv = document.getElementById('output');
+                
+
+                // Create a new task div
+                var taskDiv = document.createElement('div');
+                taskDiv.className = 'task';
+
+                // Create a checkbox
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'task-checkbox';
+
+                // Create a span for the user input
+                var userInputSpan = document.createElement('span');
+                userInputSpan.textContent = userInput;
+
+                // Append checkbox and user input to the task div
+                taskDiv.appendChild(checkbox);
+                taskDiv.appendChild(userInputSpan);
+
+                // Append the task div to the output div
+                outputDiv.appendChild(taskDiv);
+
+                // Clear the input field
+                document.getElementById('sentenceInput').value = '';
+            }
+        }
+        function removeCheckedTasks() {
+            var outputDiv = document.getElementById('output');
+            var tasks = outputDiv.getElementsByClassName('task');
+
+            // Loop through tasks in reverse order to avoid issues with removing elements
+            for (var i = tasks.length - 1; i >= 0; i--) {
+                var checkbox = tasks[i].querySelector('.task-checkbox');
+                if (checkbox.checked) {
+                    outputDiv.removeChild(tasks[i]);
+                }
+            }
+        }
+
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            var timeString = hours + ":" + minutes + ":" + seconds;
+
+            document.getElementById('clock').innerHTML = timeString;
+
+            setTimeout(updateClock, 1000);
+        }
+
+        // Timer
+        var timerSeconds = 0;
+        var timerInterval;
+
+        function startTimer() {
+            timerInterval = setInterval(function () {
+                timerSeconds++;
+                updateTimer();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            timerSeconds = 0;
+            updateTimer();
+        }
+
+        function updateTimer() {
+            var minutes = Math.floor(timerSeconds / 60);
+            var seconds = timerSeconds % 60;
+
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            var timeString = minutes + ":" + seconds;
+
+            document.getElementById('timer').innerHTML = 'Timer ' + timeString;
+        }
+    </script>
+
+   
+
+    <script>
+        // Initialize clock and timer
+        updateClock();
+        updateTimer();
+    </script>
+
+<script>
+    var musicPlayer = document.getElementById('musicPlayer');
+
+    // You can use JavaScript to control the player programmatically
+    function playMusic() {
+        musicPlayer.play();
+    }
+
+    function pauseMusic() {
+        musicPlayer.pause();
+    }
+
+    function setVolume(volume) {
+        musicPlayer.volume = volume;
+    }
+
+    function updateProgressBar() {
+        var progressBar = document.getElementById('progressBar');
+        var progress = (musicPlayer.currentTime / musicPlayer.duration) * 100;
+        progressBar.value = progress;
+    }
+
+    function seekTo(position) {
+        var seekTime = (position / 100) * musicPlayer.duration;
+        musicPlayer.currentTime = seekTime;
+    }
+
+    musicPlayer.addEventListener('timeupdate', updateProgressBar);
+
+
+</script>
+
+</body>
+
+</html>
