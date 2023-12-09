@@ -1,3 +1,13 @@
+# to open the file/webpage: enter the following in the terminal
+# python app.py
+
+# create a database by typing the following in a python shell
+# python 
+# from app import app, db, Todo
+# with app.app_context(): 
+# db.drop_all() # only if want to clear the database
+# db.create_all()
+
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -10,6 +20,7 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False) # nullable = True to make it 'blank'able
+    label = db.Column(db.String(50), nullable=True)
     completed = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -22,7 +33,9 @@ class Todo(db.Model):
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        task_label = request.form['label']
+        new_task = Todo(content=task_content, label=task_label)
+        # new_task = Todo(content=task_label)
 
         try: 
             db.session.add(new_task)
@@ -30,6 +43,7 @@ def index():
             return redirect('/')
         except:
             return 'there was an issue adding your task'
+
         
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
@@ -68,4 +82,3 @@ def update(id):
 if __name__ == '__main__':
     app.run(debug=True)
 
-# stub

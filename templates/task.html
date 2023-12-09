@@ -14,12 +14,14 @@
     <table>
         <tr>
             <th>Task</th>
-            <th>Added</th>
+            <th>Label</th>
+            <th>Date Added</th>
             <th>Actions</th>
         </tr>
         {% for task in tasks %}
             <tr>
                 <td>{{ task.content }}</td>
+                <td>{{ task.label }}</td>
                 <td>{{ task.date_created.date() }}</td>
                 <td>
                     <a href="/delete/{{task.id}}">Delete</a>
@@ -33,6 +35,15 @@
 
     <form action="/" method="POST">
         <input type="text" name="content" id="content">
+        <!-- new change below -->
+        <label for="label">Label:</label>
+        <select name="label" id="label">
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="life">Life</option>
+            <option value="others">Others</option>
+        </select>
+        <!-- new change above -->
         <input type="submit" value="Add Task">
     </form>
 </div>
