@@ -27,10 +27,33 @@ class Todo(db.Model):
     date_due = db.Column(db.DateTime, nullable=True)
     importance = db.Column(db.String(50), nullable = False)
 
+    def get_i_score(self):
+        if self.importance=='default':
+            return 0
+        elif self.importance=='kinda':
+            return 3.5 
+        elif self.importance=='urgent':
+            return 6.5
+        elif self.importance=='date_dependent':
+            time_left = self.date_due-datetime.now()
+            days_left = time_left.days
+            score = max(0,7-days_left) 
+            return score
+        else:
+            raise ValueError("there are some errors")
+ 
     def __repr__(self):
         return '<Task %r>' % self.id
-
-
+    
+def get_first_four_tasks(tasks):
+    '''get the 4 most important tasks. if less then four, return some quotes for now.'''
+    sorted_tasks = sorted(tasks, key=lambda x: x.get_i_score(), reverse=True)
+    if len(tasks)<4:
+        sorted_tasks_copy = sorted_tasks.copy()
+        sorted_tasks_copy.extend([None,None,None,None])
+        return sorted_tasks_copy[:4]
+    else:
+        return sorted_tasks[:4]
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -40,7 +63,7 @@ def index():
         if request.form['date_due'] == '':
             task_date_due = None
         else:
-            task_date_due = datetime.strptime(request.form['date_due'], '%Y-%m-%d')
+            task_date_due = datetime.strptime(request.form['date_due'], '%Y-%m-%d').replace(hour=23, minute=59)
         task_importance = request.form['importance']
 
         new_task = Todo(content=task_content, label=task_label, date_due=task_date_due, importance = task_importance)
@@ -55,7 +78,11 @@ def index():
         
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('task.html', tasks = tasks)
+        if len(tasks)>0:
+            top_four = get_first_four_tasks(tasks)
+        else:
+            top_four = [None,None,None,None]
+        return render_template('task.html', tasks = tasks, top_four = top_four)
     
 
 # template df 

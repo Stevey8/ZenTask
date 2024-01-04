@@ -28,30 +28,49 @@
             <div class="feature one">
                 <img src="../static/images/camera.png">
                 <div>
-                    <h2>Albert Einstein
-                        </h2>
-                    <p>Information is not knowledge.</p>
+                    {% if top_four[0] == None %}
+                        <h2>Albert Einstein</h2>
+                        <p>Information is not knowledge.</p>
+                    {% else %}
+                        <h2>{{ top_four[0].content }}</h2>
+                        <p>{{ top_four[0].label }}</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="feature two">
                 <!-- <img src="images/processor.png"> -->
                 <div>
-                    <h2>Eren Yeager</h2>
-                    <p>I'm not gonna die here</p>
+                    {% if top_four[1] == None %}
+                        <h2>Eren Yeager</h2>
+                        <p>I'm not gonna die here</p>
+                    {% else %}
+                        <h2>{{ top_four[1].content }}</h2>
+                        <p>{{ top_four[1].label }}</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="feature three">
                 <!-- <img src="images/display.png"> -->
                 <div>
-                    <h2>Anya Forger</h2>
-                    <p>Waku waku!</p>
+                    {% if top_four[2] == None %}
+                        <h2>Anya Forger</h2>
+                        <p>Waku waku!</p>
+                    {% else %}
+                        <h2>{{ top_four[2].content }}</h2>
+                        <p>{{ top_four[2].label }}</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="feature four">
                 <!-- <img src="images/battery.png"> -->
                 <div>
-                    <h2>Uncle Roger</h2>
-                    <p>Where your wok? Haiyaa.</p>
+                    {% if top_four[3] == None %}
+                        <h2>Uncle Roger</h2>
+                        <p>Where your wok? Haiyaa.</p>
+                    {% else %}
+                        <h2>{{ top_four[3].content }}</h2>
+                        <p>{{ top_four[3].label }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -121,7 +140,7 @@
                 <option value="default">Default</option>
                 <option value="kinda">Kind of Important</option>
                 <option value="urgent">URGENT!</option>
-                <option value="date">Date Dependent</option>
+                <option value="date_dependent">Date Dependent</option>
             </select>
             <!-- submit -->
             <br>
