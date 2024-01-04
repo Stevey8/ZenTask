@@ -16,6 +16,8 @@
             <th>Task</th>
             <th>Label</th>
             <th>Date Added</th>
+            <th>Date Due</th>
+            <th>Importance</th>
             <th>Actions</th>
         </tr>
         {% for task in tasks %}
@@ -23,6 +25,12 @@
                 <td>{{ task.content }}</td>
                 <td>{{ task.label }}</td>
                 <td>{{ task.date_created.date() }}</td>
+                {% if task.date_due == None %}
+                    <td>{{ task.date_due }}</td>
+                {% else %}
+                    <td>{{ task.date_due.date() }}</td>
+                {% endif %}
+                <td>{{ task.importance }}</td>
                 <td>
                     <a href="/delete/{{task.id}}">Delete</a>
                     <br>
@@ -34,8 +42,9 @@
     {% endif %}
 
     <form action="/" method="POST">
+        <!-- content -->
         <input type="text" name="content" id="content">
-        <!-- new change below -->
+        <!-- label -->
         <label for="label">Label:</label>
         <select name="label" id="label">
             <option value="work">Work</option>
@@ -43,8 +52,24 @@
             <option value="life">Life</option>
             <option value="others">Others</option>
         </select>
-        <!-- new change above -->
+        <!-- due date -->
+        <br>
+        <label for="date_due">Due Date (only select when needed):</label>
+        <input type="date" name="date_due" id="date_due">
+        <!-- importance -->
+        <br>
+        <label for="importance">Choose if Important:</label>
+        <select name="importance" id="importance">
+            <option value="default">Default</option>
+            <option value="kinda">Kind of Important</option>
+            <option value="urgent">URGENT!</option>
+            <option value="date">Date Dependent</option>
+        </select>
+        <!-- submit -->
+        <br>
         <input type="submit" value="Add Task">
     </form>
+
+    <a href="/df">Show DataFrame</a>
 </div>
 {% endblock %}

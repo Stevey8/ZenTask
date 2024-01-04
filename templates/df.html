@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ZenTask</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>DataFrame Table</h1>
+    {{ html_table|safe }}
+</div>
+{% endblock %}
