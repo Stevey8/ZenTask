@@ -23,3 +23,396 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+
+
+
+
+
+
+
+/* below is from original hackcamp file by Jerrica */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.main{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, #97729d, #93b4cf);
+}
+
+.todolist{
+    position: absolute;
+    left: 14%;
+    top: 10%;
+    transform: translateY(-50%);
+}
+
+.todolist h1{
+    margin: 15px 0;
+    color: #fff;
+}
+.todobox{
+    position: absolute;
+    right: 4.5%;
+    bottom: 6%;
+    height:20%;
+    width: 30%;
+    color: #fff;
+    background-color: #d4b3d9;
+    margin: 10px auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: 10px;
+}
+
+.outputbox{
+    margin-left: 10px;
+}
+
+nav{
+
+    height: 100%;
+    width: 13%;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    background-color: #755645;
+    overflow-x: hidden;
+    
+    margin: 0px auto;
+    z-index: 1;
+    justify-content: center;
+    display: block;
+}
+
+.nav-links{
+    flex: 1;
+    margin: 125 auto;
+    text-align: center;
+    align-items: center;
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    padding: 15px 10px 6px 16px;
+    text-align: center;
+    align-items: center;
+}
+
+
+.nav-links .tab{
+    background-color: transparent;
+    font-weight: 700;
+}
+
+.nav-links .tab.is-active{
+    background-color: #8ecdff;
+    font-weight: 700;
+}
+
+
+.nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.logo{
+    
+    flex-basis: 20%;
+}
+
+.logo img{
+    width:50%;
+    height: auto;
+    margin: 10 50;
+    margin-top: 10px;
+
+}
+
+
+
+.information{
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: 50%;
+    left: -10%;
+    transform: translateY(-50%);
+}
+
+#circle{
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: 0;
+    left: 300px;
+    border-radius: 20%;
+    transform: rotate(0deg);
+    transition: 1s;
+}
+
+.feature img{
+    width: 70px;
+}
+
+.feature{
+    position: absolute;
+    display: flex;
+    color: #fff;
+}
+
+.feature div{
+    margin-left: 30px;
+}
+
+.feature div p{
+    margin-top: 8px;
+}
+
+.one{
+    top: 465px;
+    left: 465px;
+}
+
+.two{
+    top: 320px;
+    left: 400px;
+    transform: rotate(-90deg);
+}
+
+.three{
+    top: 475px;
+    left: 265px;
+    transform: rotate(-180deg);
+}
+
+.four{
+    bottom: 325px;
+    left: 390px;
+    transform: rotate(-270deg);
+}
+
+.mobile{
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.controls{
+    position: absolute;
+    right: 28%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.controls h3{
+    margin: 15px 0;
+    color: #fff;
+}
+
+#upBtn{
+    width: 15px;
+    cursor: pointer;
+}
+
+#downBtn{
+    width: 15px;
+    cursor: pointer;
+    transform: rotate(180deg);
+}
+
+.overlay{
+    /* width: 0;
+    height: 0;
+    border-top: 500px solid #fff;
+    border-right: 500px solid transparent;
+    border-bottom: 500px solid #fff;
+    border-left: 500px solid #fff;
+    position: absolute;
+    left: 0;
+    top: 0; */
+    width: 100px;
+    height: 100px;
+    background-color: #207cb9; /* Blue color, change as needed */
+    border-top: 250px solid #fff;
+    border-right: 250px solid transparent;
+    border-bottom: 250px solid #fff;
+    border-left: 250px solid #fff;
+    border-radius: 55%;
+    
+    bottom: 200px;
+    right: 350px;
+    left: 500px;
+    position: absolute;
+    
+}
+
+.wrapper{
+    top: 120%;
+    left: 40%;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    /* backdrop-filter: blur(100%); */
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.wrapper .form-box{
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2{
+    font-size: 2em;
+    color: black;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 10px;
+}
+
+.time{
+    /* position: absolute;
+    font-size: 24px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-weight: bold;
+    
+    transform: translateY(-50%); */
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    margin: 15% auto;
+            
+}
+
+.timeplace{
+    
+    
+    width: 200px;
+    height: 200px;
+    
+    position: fixed;
+    top:25px;
+    right: 125px;
+    background-color: transparent;
+    overflow-x: hidden;
+    
+    margin: 0px auto;
+    z-index: 1;
+    justify-content: center;
+   
+
+    border: 10px solid #19384d;
+    border-radius: 50%;
+    
+}
+
+.time ul li{
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    padding: 15px 10px 6px 10px;
+}
+
+.template-todo{
+    width: 400;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Viewport height */
+    margin: 100 300;
+    z-index: 1;
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    border: 10px solid #19384d;
+
+}
+
+.template-todo form label{
+    padding: 15px 10px 6px 0px;
+    font-size: 20;
+}
+
+.template-todo form fieldset legend{
+    padding: 15px 10px 6px 0px;
+    font-size: 20;
+}
+
+.template-todo form button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #1e4a67;
+    /* Change as needed */
+    color: #fff;
+    /* Change as needed */
+    border: none;
+    outline: none;
+    margin: 30 auto;
+}
+
+.table_todo{
+    width: 500;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Viewport height */
+    margin: 100 800;
+    
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    position: absolute;
+
+    border: 10px solid #19384d;
+}
+
+.table_todo form{
+    width: 3000;
+}
+
+.anya img{
+   width:110%;
+   height: auto;
+   /* margin: 10 auto; */
+   margin-top: 360px;
+   /* position: absolute; */
+}
+
+.peanut img{
+    width:50%;
+    height: auto;
+    margin: 100 50;
+    z-index: 1;
+    
+ }
+
+ 
+/* above is from original hackcamp file by Jerrica */

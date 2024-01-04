@@ -1,12 +1,45 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>ZenTask</title>
+<title>Tasks</title>
 {% endblock %}
 
 {% block body %}
 <div class="content">
-    <h1>DataFrame Table</h1>
-    {{ html_table|safe }}
+    <h1>Tasks</h1>
+    <!-- {{ html_table|safe }} -->
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center"mc>There are no tasks. Create one below.</h4>
+    {% else %}
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Label</th>
+            <th>Date Added</th>
+            <th>Date Due</th>
+            <th>Importance</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.label }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                {% if task.date_due == None %}
+                    <td>{{ task.date_due }}</td>
+                {% else %}
+                    <td>{{ task.date_due.date() }}</td>
+                {% endif %}
+                <td>{{ task.importance }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </div>
 {% endblock %}

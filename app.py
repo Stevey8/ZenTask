@@ -44,8 +44,6 @@ def index():
         task_importance = request.form['importance']
 
         new_task = Todo(content=task_content, label=task_label, date_due=task_date_due, importance = task_importance)
-        # new_task = Todo(content=task_content, label=task_label, date_due=task_date_due)
-
 
         try: 
             db.session.add(new_task)
@@ -60,17 +58,25 @@ def index():
         return render_template('task.html', tasks = tasks)
     
 
+# template df 
+@app.route('/df')
+def show_df():
+    tasks = Todo.query.order_by(Todo.date_created).all()
+    return render_template('df.html', tasks = tasks)
+    
+
 
 
 
 # create a dataframe 
-df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]})
-html_table = df.to_html(index=False)
 
-@app.route('/df')
-def show_df():
-    html_table = df.to_html(index=False)
-    return render_template('df.html', html_table=html_table)
+# df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]})
+# html_table = df.to_html(index=False)
+
+# @app.route('/df')
+# def show_df():
+#     html_table = df.to_html(index=False)
+#     return render_template('df.html', html_table=html_table)
 
 
 

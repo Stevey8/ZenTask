@@ -5,71 +5,129 @@
 {% endblock %}
 
 {% block body %}
+<div class="main">
+    <nav>
+        <div class="logo">
+            <img src="../static/images/dog.png">
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <!-- <li><a href="application.html">Applications</a></li> -->
+                <li><a href="/df">TODO List</a></li>
+                <!-- <li><a href="MyProfile.html">Motivational Boost!</a></li> -->
+                <!--<li><a href="login.html">Login/Sign up</a></li> -->
+            </ul>
+        </div>
+        <div class="anya"><img src="../static/images/Anya-PNG-Image.png"></div>
+    </nav>
+
+    <div class="information">
+        <div class="overlay"></div>
+        <div id="circle">
+            <div class="feature one">
+                <img src="../static/images/camera.png">
+                <div>
+                    <h2>Albert Einstein
+                        </h2>
+                    <p>Information is not knowledge.</p>
+                </div>
+            </div>
+            <div class="feature two">
+                <!-- <img src="images/processor.png"> -->
+                <div>
+                    <h2>Eren Yeager</h2>
+                    <p>I'm not gonna die here</p>
+                </div>
+            </div>
+            <div class="feature three">
+                <!-- <img src="images/display.png"> -->
+                <div>
+                    <h2>Anya Forger</h2>
+                    <p>Waku waku!</p>
+                </div>
+            </div>
+            <div class="feature four">
+                <!-- <img src="images/battery.png"> -->
+                <div>
+                    <h2>Uncle Roger</h2>
+                    <p>Where your wok? Haiyaa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <img src="../static/images/arrow.png" id="upBtn">
+        <h3>Tasks</h3>
+        <img src="../static/images/arrow.png" id='downBtn'>
+    </div>
+
+    <div class="todolist">
+        <h1>GET PUMPED!</h1>
+    </div>
+
+    <script>
+        var circle = document.getElementById("circle");
+        var upBtn = document.getElementById("upBtn");
+        var downBtn = document.getElementById("downBtn");
+
+        var rotateValue = circle.style.transform;
+        var rotateSum;
+
+        upBtn.onclick = function () {
+            rotateSum = rotateValue + "rotate(-90deg)";
+            circle.style.transform = rotateSum;
+            rotateValue = rotateSum;
+        }
+
+        downBtn.onclick = function () {
+            rotateSum = rotateValue + "rotate(90deg)";
+            circle.style.transform = rotateSum;
+            rotateValue = rotateSum;
+        }
+    </script>
+</div>
+
 <div class="content">
     <h1 style="text-align: center">Task Master</h1>
     {% if tasks|length < 1 %}
     <h4 style="text-align: center"mc>There are no tasks. Create one below.</h4>
     {% else %}
 
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Label</th>
-            <th>Date Added</th>
-            <th>Date Due</th>
-            <th>Importance</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.label }}</td>
-                <td>{{ task.date_created.date() }}</td>
-                {% if task.date_due == None %}
-                    <td>{{ task.date_due }}</td>
-                {% else %}
-                    <td>{{ task.date_due.date() }}</td>
-                {% endif %}
-                <td>{{ task.importance }}</td>
-                <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <!-- table is moved to df.html -->
     {% endif %}
 
-    <form action="/" method="POST">
-        <!-- content -->
-        <input type="text" name="content" id="content">
-        <!-- label -->
-        <label for="label">Label:</label>
-        <select name="label" id="label">
-            <option value="work">Work</option>
-            <option value="school">School</option>
-            <option value="life">Life</option>
-            <option value="others">Others</option>
-        </select>
-        <!-- due date -->
-        <br>
-        <label for="date_due">Due Date (only select when needed):</label>
-        <input type="date" name="date_due" id="date_due">
-        <!-- importance -->
-        <br>
-        <label for="importance">Choose if Important:</label>
-        <select name="importance" id="importance">
-            <option value="default">Default</option>
-            <option value="kinda">Kind of Important</option>
-            <option value="urgent">URGENT!</option>
-            <option value="date">Date Dependent</option>
-        </select>
-        <!-- submit -->
-        <br>
-        <input type="submit" value="Add Task">
-    </form>
+    <div class="todobox">
+        <form action="/" method="POST">
+            <!-- content -->
+            <input type="text" name="content" id="content">
+            <!-- label -->
+            <label for="label">Label:</label>
+            <select name="label" id="label">
+                <option value="work">Work</option>
+                <option value="school">School</option>
+                <option value="life">Life</option>
+                <option value="others">Others</option>
+            </select>
+            <!-- due date -->
+            <br>
+            <label for="date_due">Due Date (only select when needed):</label>
+            <input type="date" name="date_due" id="date_due">
+            <!-- importance -->
+            <br>
+            <label for="importance">Choose if Important:</label>
+            <select name="importance" id="importance">
+                <option value="default">Default</option>
+                <option value="kinda">Kind of Important</option>
+                <option value="urgent">URGENT!</option>
+                <option value="date">Date Dependent</option>
+            </select>
+            <!-- submit -->
+            <br>
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
 
-    <a href="/df">Show DataFrame</a>
 </div>
 {% endblock %}
