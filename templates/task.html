@@ -12,9 +12,9 @@
         </div>
         <div class="nav-links">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/task">Home</a></li>
                 <!-- <li><a href="application.html">Applications</a></li> -->
-                <li><a href="/df">TODO List</a></li>
+                <li><a href="/df">Todo List</a></li>
                 <!-- <li><a href="MyProfile.html">Motivational Boost!</a></li> -->
                 <!--<li><a href="login.html">Login/Sign up</a></li> -->
             </ul>
@@ -109,14 +109,6 @@
 </div>
 
 <div class="content">
-    <h1 style="text-align: center">Task Master</h1>
-    {% if tasks|length < 1 %}
-    <h4 style="text-align: center"mc>There are no tasks. Create one below.</h4>
-    {% else %}
-
-    <!-- table is moved to df.html -->
-    {% endif %}
-
     <div class="todobox">
         <form action="/" method="POST">
             <!-- content -->

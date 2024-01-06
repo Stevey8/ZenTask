@@ -22,10 +22,11 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False) # nullable = True to make it 'blank'able
     label = db.Column(db.String(50), nullable=False)
-    completed = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     date_due = db.Column(db.DateTime, nullable=True)
     importance = db.Column(db.String(50), nullable = False)
+    completed = db.Column(db.Integer, default=0)
+
 
     def get_i_score(self):
         if self.importance=='default':
@@ -45,15 +46,20 @@ class Todo(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.id
     
+    
 def get_first_four_tasks(tasks):
     '''get the 4 most important tasks. if less then four, return some quotes for now.'''
     sorted_tasks = sorted(tasks, key=lambda x: x.get_i_score(), reverse=True)
+
     if len(tasks)<4:
         sorted_tasks_copy = sorted_tasks.copy()
         sorted_tasks_copy.extend([None,None,None,None])
         return sorted_tasks_copy[:4]
     else:
         return sorted_tasks[:4]
+
+
+
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -78,35 +84,33 @@ def index():
         
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
-        if len(tasks)>0:
-            top_four = get_first_four_tasks(tasks)
-        else:
-            top_four = [None,None,None,None]
-        return render_template('task.html', tasks = tasks, top_four = top_four)
+        top_four = get_first_four_tasks(tasks)
+        return render_template('task.html', top_four = top_four)
     
 
-# template df 
 @app.route('/df')
 def show_df():
     tasks = Todo.query.order_by(Todo.date_created).all()
     return render_template('df.html', tasks = tasks)
+
+@app.route('/task')
+def task():
+    tasks = Todo.query.order_by(Todo.date_created).all()
+    top_four = get_first_four_tasks(tasks)
+    return render_template('task.html', top_four = top_four)
+
+
+
+@app.route('/done/<int:id>')
+def complete(id):
+    task = Todo.query.get_or_404(id)
+    try:
+        task.completed=1
+        db.session.commit()
+        return redirect('/df')
+    except:
+        return 'There was a problem completing the task'
     
-
-
-
-
-# create a dataframe 
-
-# df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]})
-# html_table = df.to_html(index=False)
-
-# @app.route('/df')
-# def show_df():
-#     html_table = df.to_html(index=False)
-#     return render_template('df.html', html_table=html_table)
-
-
-
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -115,7 +119,7 @@ def delete(id):
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect('/')
+        return redirect('/df')
     except:
         return 'There was a problem deleting that task'
     
@@ -128,7 +132,7 @@ def update(id):
 
         try:
             db.session.commit()
-            return redirect('/')
+            return redirect('/df')
         except:
             return 'There was a problem updating the task'
     
@@ -139,3 +143,14 @@ def update(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# create a dataframe 
+
+# df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]})
+# html_table = df.to_html(index=False)
+
+# @app.route('/df')
+# def show_df():
+#     html_table = df.to_html(index=False)
+#     return render_template('df.html', html_table=html_table)

@@ -1,10 +1,28 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Tasks</title>
+<title>Todo List</title>
 {% endblock %}
 
 {% block body %}
+<div class="main">
+    <nav>
+        <div class="logo">
+            <img src="../static/images/dog.png">
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/task">Home</a></li>
+                <!-- <li><a href="application.html">Applications</a></li> -->
+                <li><a href="/df">Todo List</a></li>
+                <!-- <li><a href="MyProfile.html">Motivational Boost!</a></li> -->
+                <!--<li><a href="login.html">Login/Sign up</a></li> -->
+            </ul>
+        </div>
+        <div class="anya"><img src="../static/images/Anya-PNG-Image.png"></div>
+    </nav>
+
+
 <div class="content">
     <h1>Tasks</h1>
     <!-- {{ html_table|safe }} -->
@@ -14,6 +32,7 @@
 
     <table>
         <tr>
+            <th>Done?</th>
             <th>Task</th>
             <th>Label</th>
             <th>Date Added</th>
@@ -23,6 +42,9 @@
         </tr>
         {% for task in tasks %}
             <tr>
+                <td>
+                    <a href="/done/{{task.id}}">Done!</a>
+                </td>
                 <td>{{ task.content }}</td>
                 <td>{{ task.label }}</td>
                 <td>{{ task.date_created.date() }}</td>
@@ -42,4 +64,5 @@
     </table>
     {% endif %}
 </div>
+
 {% endblock %}
