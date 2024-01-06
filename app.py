@@ -8,7 +8,7 @@
 # db.drop_all() # only if want to clear the database
 # db.create_all()
 
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd 
@@ -90,6 +90,7 @@ def index():
 def show_df():
     tasks = Todo.query.order_by(Todo.date_created).all()
     return render_template('df.html', tasks = tasks)
+
     
 
 
