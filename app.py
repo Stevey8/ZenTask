@@ -163,3 +163,6 @@ if __name__ == '__main__':
 # def show_df():
 #     html_table = df.to_html(index=False)
 #     return render_template('df.html', html_table=html_table)
+
+
+# trying 
