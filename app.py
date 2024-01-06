@@ -8,7 +8,7 @@
 # db.drop_all() # only if want to clear the database
 # db.create_all()
 
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd 
@@ -98,6 +98,10 @@ def task():
     tasks = Todo.query.order_by(Todo.date_created).all()
     top_four = get_first_four_tasks(tasks)
     return render_template('task.html', top_four = top_four)
+
+@app.route('/music')
+def music():    
+    return render_template('music.html')
 
 
 
