@@ -13,10 +13,8 @@
         <div class="nav-links">
             <ul>
                 <li><a href="/task">Home</a></li>
-                <!-- <li><a href="application.html">Applications</a></li> -->
                 <li><a href="/df">Todo List</a></li>
-                <!-- <li><a href="MyProfile.html">Motivational Boost!</a></li> -->
-                <!--<li><a href="login.html">Login/Sign up</a></li> -->
+                <li><a href="/done">Done Tasks</a></li>
             </ul>
         </div>
         <div class="anya"><img src="../static/images/Anya-PNG-Image.png"></div>
@@ -27,7 +25,7 @@
     <h1>Tasks</h1>
     <!-- {{ html_table|safe }} -->
     {% if tasks|length < 1 %}
-    <h4 style="text-align: center"mc>There are no tasks. Create one below.</h4>
+    <h4 style="text-align: center"mc>There are no tasks. Create one to get started.</h4>
     {% else %}
 
     <table>
@@ -44,7 +42,7 @@
             {% if task.completed == 0%}
                 <tr>
                     <td>
-                        <a href="/done/{{task.id}}">Done!</a>
+                        <a href="/complete/{{task.id}}">Done!</a>
                     </td>
                     <td>{{ task.content }}</td>
                     <td>{{ task.label }}</td>

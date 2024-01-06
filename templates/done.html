@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Done Tasks</title>
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <nav>
+        <div class="logo">
+            <img src="../static/images/dog.png">
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/task">Home</a></li>
+                <li><a href="/df">Todo List</a></li>
+                <li><a href="/done">Done Tasks</a></li>
+            </ul>
+        </div>
+        <div class="anya"><img src="../static/images/Anya-PNG-Image.png"></div>
+    </nav>
+
+
+<div class="content">
+    <h1>Tasks</h1>
+    <!-- {{ html_table|safe }} -->
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center"mc>No task is done yet.</h4>
+    {% else %}
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Label</th>
+            <th>Date Added</th>
+            <th>Date Due</th>
+            <th>Importance</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.label }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                {% if task.date_due == None %}
+                    <td>{{ task.date_due }}</td>
+                {% else %}
+                    <td>{{ task.date_due.date() }}</td>
+                {% endif %}
+                <td>{{ task.importance }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -49,9 +49,11 @@ class Todo(db.Model):
     
 def get_first_four_tasks(tasks):
     '''get the 4 most important tasks for home page. if less then four, return some quotes for now.'''
-    sorted_tasks = sorted(tasks, key=lambda x: x.get_i_score(), reverse=True)
 
-    if len(tasks)<4:
+    todo_tasks = [t for t in tasks if t.completed==0]
+    sorted_tasks = sorted(todo_tasks, key=lambda x: x.get_i_score(), reverse=True)
+
+    if len(todo_tasks)<4:
         sorted_tasks_copy = sorted_tasks.copy()
         sorted_tasks_copy.extend([None,None,None,None])
         return sorted_tasks_copy[:4]
@@ -88,24 +90,31 @@ def index():
         return render_template('task.html', top_four = top_four)
     
 
-@app.route('/df')
-def show_df():
-    tasks = Todo.query.order_by(Todo.date_created).all()
-    return render_template('df.html', tasks = tasks)
-
 @app.route('/task')
 def task():
     tasks = Todo.query.order_by(Todo.date_created).all()
     top_four = get_first_four_tasks(tasks)
     return render_template('task.html', top_four = top_four)
 
+@app.route('/df')
+def show_df():
+    tasks = Todo.query.order_by(Todo.date_created).all()
+    todo_tasks = [t for t in tasks if t.completed==0]
+    return render_template('df.html', tasks = todo_tasks)
+
+@app.route('/done')
+def done():
+    tasks = Todo.query.order_by(Todo.date_created).all()
+    done_tasks = [t for t in tasks if t.completed]
+    return render_template('done.html', tasks = done_tasks)
 
 
-@app.route('/done/<int:id>')
+# when clicking "Done!"
+@app.route('/complete/<int:id>')
 def complete(id):
     task = Todo.query.get_or_404(id)
     try:
-        task.completed=1
+        task.completed=True
         db.session.commit()
         return redirect('/df')
     except:
