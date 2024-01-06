@@ -419,11 +419,15 @@ nav{
 }
 
 .anya img{
-   width:110%;
-   height: auto;
-   /* margin: 10 auto; */
-   margin-top: 360px;
-   /* position: absolute; */
+  
+    position: fixed;
+    bottom: 0;
+    
+    transform: translateX(-50%);
+    width: 15%; /* Adjust the width of your image */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 0px; /* Add margin to separate the image from the bottom */
+  
 }
 
 .peanut img{
