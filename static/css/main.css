@@ -161,45 +161,65 @@ nav{
     transition: 1s;
 }
 
-.feature img{
+/* .center{
+    width: 100px;
+    height: 100px;
+    top:46.5%;
+    left:46.5%;
+    position: relative;
+} */
+#circle img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust the width of the image as needed */
+    height: auto; /* Maintain the aspect ratio */
+    border-radius: 50%; /* Optional: make the image circular */
     width: 70px;
-}
+  }
+
+
 
 .feature{
     position: absolute;
-    display: flex;
+    top: 50%;
+    left: 50%;
+    width: 200px; /* Set the width and height of each rotating item */
+    height: 200px;
+    text-align: center;
+    border-radius: 50%; /* Optional: make items circular */
     color: #fff;
 }
 
+
 .feature div{
-    margin-left: 30px;
+    margin-left: 50px;
 }
+
 
 .feature div p{
     margin-top: 8px;
 }
 
+
+
 .one{
-    top: 467px;
-    left: 463px;
+    
+    transform: translate(0%, -15%) rotate(0deg);
 }
 
+
 .two{
-    top: 320px;
-    left: 400px;
-    transform: rotate(-90deg);
+    transform: translate(-15%, -105%) rotate(-90deg);
 }
 
 .three{
-    top: 475px;
-    left: 265px;
-    transform: rotate(-180deg);
+    transform: translate(-105%, -90%) rotate(-180deg);
 }
 
 .four{
-    bottom: 325px;
-    left: 390px;
-    transform: rotate(-270deg);
+    transform: translate(-90%, 15%) rotate(-270deg);
 }
 
 .mobile{
