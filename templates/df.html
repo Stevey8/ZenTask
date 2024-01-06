@@ -41,25 +41,27 @@
             <th>Actions</th>
         </tr>
         {% for task in tasks %}
-            <tr>
-                <td>
-                    <a href="/done/{{task.id}}">Done!</a>
-                </td>
-                <td>{{ task.content }}</td>
-                <td>{{ task.label }}</td>
-                <td>{{ task.date_created.date() }}</td>
-                {% if task.date_due == None %}
-                    <td>{{ task.date_due }}</td>
-                {% else %}
-                    <td>{{ task.date_due.date() }}</td>
-                {% endif %}
-                <td>{{ task.importance }}</td>
-                <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
-                </td>
-            </tr>
+            {% if task.completed == 0%}
+                <tr>
+                    <td>
+                        <a href="/done/{{task.id}}">Done!</a>
+                    </td>
+                    <td>{{ task.content }}</td>
+                    <td>{{ task.label }}</td>
+                    <td>{{ task.date_created.date() }}</td>
+                    {% if task.date_due == None %}
+                        <td>{{ task.date_due }}</td>
+                    {% else %}
+                        <td>{{ task.date_due.date() }}</td>
+                    {% endif %}
+                    <td>{{ task.importance }}</td>
+                    <td>
+                        <a href="/delete/{{task.id}}">Delete</a>
+                        <br>
+                        <a href="/update/{{task.id}}">Update</a>
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
     </table>
     {% endif %}

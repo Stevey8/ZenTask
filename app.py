@@ -48,7 +48,7 @@ class Todo(db.Model):
     
     
 def get_first_four_tasks(tasks):
-    '''get the 4 most important tasks. if less then four, return some quotes for now.'''
+    '''get the 4 most important tasks for home page. if less then four, return some quotes for now.'''
     sorted_tasks = sorted(tasks, key=lambda x: x.get_i_score(), reverse=True)
 
     if len(tasks)<4:
