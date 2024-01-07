@@ -98,9 +98,16 @@ def task():
 
 @app.route('/df')
 def show_df():
-    tasks = Todo.query.order_by(Todo.date_created).all()
+    tasks = Todo.query.order_by(Todo.date_created).all().copy()
     todo_tasks = [t for t in tasks if t.completed==0]
-    return render_template('df.html', tasks = todo_tasks)
+    # for t in todo_tasks:
+    #     if t.date_due==None:
+    #         t.date_due = datetime(1970, 1, 1)
+    sorted_tasks = sorted(
+        todo_tasks,
+        key=lambda x: (x.get_i_score()*(-1), x.date_due if x.date_due is not None else datetime.max),
+    )
+    return render_template('df.html', tasks = sorted_tasks)
 
 @app.route('/done')
 def done():
